@@ -44,5 +44,5 @@ const studentSchema = new mongoose.Schema({
 },
 );
 
-const student = mongoose.model("Post", studentSchema)
+const student = mongoose.model("Students", studentSchema)
 export default student;
