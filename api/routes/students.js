@@ -1,7 +1,10 @@
 import express from 'express';
 
 const router = express.Router();
-import { postStudent } from '../controllers/studentsController.js';
+import {
+    postStudent,
+    getStudent
+} from '../controllers/studentsController.js';
 //Update :-
 // router.put("/:id", updateStudent);
 
@@ -10,6 +13,6 @@ import { postStudent } from '../controllers/studentsController.js';
 
 // get a Student :-
 // router.get('/:id', getStudent)
-// router.get('/:id', getStudent)
+router.get('/:id', getStudent)
 router.post('/register', postStudent)
 export default router

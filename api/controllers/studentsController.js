@@ -45,11 +45,14 @@ export const postStudent = async (req, res) => {
     }
 }
 
-export const getStudent = (req, res) => {
-    const studID = req.params.studId
+export const getStudent = async (req, res) => {
+    console.log("in")
+    const studID = req.params.id
     try {
-        const getStud = Student.findById(studID);
+        console.log("In")
+        const getStud = await Student.findById(studID);
         res.status(200).json(getStud);
+        console.log("done")
     } catch (err) {
         return res.json(err)
     }
