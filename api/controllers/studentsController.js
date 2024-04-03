@@ -30,7 +30,7 @@ export const postStudent = async (req, res) => {
     // const newStudent = await new Student({
     //     username: "bhaavesh",
     //     email: "bhaavesh@gmail.com",
-    //     password: "bhaavesh10"
+    //     password: "12345"
     try {
         // Hash password - secure with size 10 hash
         // console.log("In")
