@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 
 const classroomSchema = new mongoose.Schema({
     classroomID: {
+        type: String
+    },
+    name : {
         type: String,
         required: true
     },
@@ -19,21 +22,13 @@ const classroomSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    attendance: [
-        {
-            date: {
-                type: Date,
-                required: true
-            },
-            studentPresent: {
-                type: Array,
-                required: true
-            }
-        }
-    ]
+    attendance: {
+        type: Array,
+        default: []
+    }
 },
     { timestamps: true }
 );
 
 const classroom = mongoose.model("Classroom", classroomSchema)
-export default student;
+export default classroom;
