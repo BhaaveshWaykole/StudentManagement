@@ -32,6 +32,7 @@ const classroomSchema = new mongoose.Schema({
         }
     ]
 },
+    { timestamps: true }
 );
 
 const classroom = mongoose.model("Classroom", classroomSchema)
