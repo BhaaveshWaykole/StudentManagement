@@ -20,7 +20,7 @@ export default function AnnouncementCard({ announceInfo }) {
           </h4>
         </div>
       </div>
-      <div className='announceContent mt-2 h-24 text-wrap truncate p-3'>
+      <div className='announceContent mt-2 h-fit text-wrap p-3'>
         <p>
           {announceInfo.content}
         </p>

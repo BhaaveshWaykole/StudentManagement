@@ -52,7 +52,7 @@ export default function Clasroom() {
         <a href="">
           <div className="flex flex-row flex-wrap">
             {announcements.map((announcementItem) => (
-              <div className="border-2 border-black w-full my-3 mx-5 p-3 rounded-rnd-6p bg-white" key={announcementItem.key} onClick={() => goToAnnouncement(announcementItem.key)}>
+              <div className="border-2 border-black w-full h-fit my-3 mx-5 p-3 rounded-rnd-6p bg-white" key={announcementItem.key} onClick={() => goToAnnouncement(announcementItem.key)}>
                 <AnnouncementCard announceInfo={announcementItem} />
               </div>
             ))}
