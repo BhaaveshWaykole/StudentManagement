@@ -42,8 +42,21 @@ export const putAttendance = async (req, res) => {
             try {
                 const getStudids = attendanceRecord.studentPresent
                 // const students = await Student.find({ _id: { $in: getStudids } })
-                console.log(getStudids)
-                res.status(200).json(getStudids);
+                // filter all those student ids not present in attendance already so that we will get attendance to mark of student which is requested by teacher to mark, andit just ensures if already marked it will skip those 
+                const notCommonStudents = req.body.studentPresent.filter(studentId => !getStudids.includes(studentId));
+                // filter - returns array of student who are not present.
+                let updateAttendees;
+                if (notCommonStudents) {
+                    notCommonStudents.forEach(async studentId => {
+                        // Update attendanceRecord by pushing the student ID
+                        const updateAttendees = await Attendance.findByIdAndUpdate(
+                            attendanceRecord._id,
+                            { $push: { studentPresent: studentId } },
+                            { new: true }
+                        );
+                    });
+                }
+                res.status(200).json(updateAttendees);
             }
             catch (err) {
                 res.sendStatus(200).json(err);
