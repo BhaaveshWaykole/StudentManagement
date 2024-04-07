@@ -2,12 +2,14 @@ import express from 'express';
 
 const router = express.Router();
 import {
-    postAnnouncement
+    putAttendance,
+    postClassroom
 } from '../controllers/classroomController.js';
 
 // router.put('/:id', updateClass)
 
 // router.get('/:id', getStudent)
 
-router.post('/postannouncement', postAnnouncement)
+router.put('/:id', putAttendance)
+router.post('/:id', postClassroom)
 export default router
