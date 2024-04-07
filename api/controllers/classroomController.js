@@ -47,16 +47,18 @@ export const putAttendance = async (req, res) => {
                 // filter - returns array of student who are not present.
                 let updateAttendees;
                 if (notCommonStudents) {
-                    notCommonStudents.forEach(async studentId => {
+                    const updateAttendeesPromises = notCommonStudents.map(async studentId => {
                         // Update attendanceRecord by pushing the student ID
-                        const updateAttendees = await Attendance.findByIdAndUpdate(
+                        return Attendance.findByIdAndUpdate(
                             attendanceRecord._id,
                             { $push: { studentPresent: studentId } },
                             { new: true }
                         );
                     });
+                    const updatedAttendees = await Promise.all(updateAttendeesPromises);
+                    res.status(200).json(updatedAttendees);
                 }
-                res.status(200).json(updateAttendees);
+                // res.status(200).json(attendanceRecord.studentPresent);
             }
             catch (err) {
                 res.sendStatus(200).json(err);
