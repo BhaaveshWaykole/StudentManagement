@@ -2,14 +2,18 @@ import express from 'express';
 
 const router = express.Router();
 import {
-    putAttendance,
-    postClassroom
+    // putAttendance,
+    postClassroom,
+    // updateClassroom,
+    // deleteClassroom
 } from '../controllers/classroomController.js';
 
-// router.put('/:id', updateClass)
+// to create class taking id of teacher to add teacher's name ... change later if needed
+router.post('/:id', postClassroom)
+// router.put('/:id', updateClassroom)
+// router.put('/:id', getClassroom)
+// router.put('/:id', deleteClassroom)
 
 // router.get('/:id', getStudent)
 
-router.put('/:id', putAttendance)
-router.post('/:id', postClassroom)
 export default router

@@ -10,7 +10,8 @@ const attendanceSchema = new mongoose.Schema({
     //     default: []
     // },
     cId: {
-        type: String
+        type: String,
+        required: true
     },
     date: {
         type: Date,
