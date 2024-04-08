@@ -11,18 +11,25 @@ export const createAttendance = async (req, res) => {
         //         // console.log(dateToFind)
         const attendanceRecordDate = await Attendance.findOne({ date: dateToFind, cId: classToFind })
         if (!(attendanceRecordDate)) {
+            // create attendance obj
             const attendanceClass = new Attendance({
                 cId: req.body.cId, // take class id for which class attendance is getting created.
                 date: req.body.date,
                 studentPresent: req.body.studentPresent
             })
+            // save attendance obj to db
             await attendanceClass.save()
             console.log(attendanceClass)
+
+            // find the classroom in which attendance is created -> class id in body given.Then update that class attendance array give the attendance id to class ->> attendance -(put attendance id here) attendance id.
             const updateClassroom = await Classroom.findByIdAndUpdate(
                 attendanceClass.cId,
-                { $push: { attendance: attendanceClass._id } },
+                { $push: { attendance: attendanceClass.id } },
                 { new: true }
             );
+
+            //similarly for students :-
+            // but mostly no need as of this as while crreating a attendance one cannot give student as parameter from frontend .. remove later if needed similarly in create attendance obj remove studentPresent when remove this.
             const updateStudentPromises = attendanceClass.studentPresent.map(async studentId => {
                 // Update attendanceRecord by pushing the student ID
                 return Student.findByIdAndUpdate(
@@ -84,7 +91,7 @@ export const updateAttendance = async (req, res) => {
     }
 }
 
-// G :
+// R :
 export const getAttendance = async (req, res) => {
     const aId = req.params.id;
     try {

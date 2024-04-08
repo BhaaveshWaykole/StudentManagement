@@ -4,6 +4,10 @@ const classroomSchema = new mongoose.Schema({
     classroomID: {
         type: String
     },
+    batch : {
+        type : String,
+        required: true
+    },
     name : {
         type: String,
         required: true
