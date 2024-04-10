@@ -53,33 +53,44 @@ export const createClassroom = async (req, res) => {
 
 export const updateClassroom = async (req, res) => {
     const getClass = await Classroom.findById(req.params.id);
-    try {
-        const notCommonStudents = req.body.students.filter(studentId => !getClass.students.includes(studentId));
-        const notCommonTeachers = req.body.teachers.filter(teacherId => !getClass.teachers.includes(teacherId));
-        const updatedClass = await Classroom.findByIdAndUpdate(
-            req.params.id,
-            {
-                $push: {
-                    students: { $each: notCommonStudents },
-                    teachers: { $each: notCommonTeachers }
-                }
-            },
-            { new: true }
-        )
+    if (getClass) {
 
-        await Student.updateMany(
-            { _id: { $in: notCommonStudents } },
-            { $push: { classes: updatedClass.id } }
-        )
 
-        await Faculty.updateMany(
-            { _id: { $in: notCommonTeachers } },
-            { $push: { classes: updatedClass.id } }
-        )
+        try {
+            // get non common students and teachers so if any issue occurs and repeat of students and teacher passed should not disturb data/doc .. 
+            const notCommonStudents = req.body.students.filter(studentId => !getClass.students.includes(studentId));
+            const notCommonTeachers = req.body.teachers.filter(teacherId => !getClass.teachers.includes(teacherId));
 
-        res.status(200).json(updatedClass)
-    } catch (err) {
-        res.status(503).json(err)
+            // update class :-
+            const updatedClass = await Classroom.findByIdAndUpdate(
+                req.params.id,
+                {
+                    $push: {
+                        students: { $each: notCommonStudents },
+                        teachers: { $each: notCommonTeachers }
+                    }
+                },
+                { new: true }
+            )
+
+            // from the array of non common students for particular id add that class to them.
+            await Student.updateMany(
+                { _id: { $in: notCommonStudents } },
+                { $push: { classes: updatedClass.id } }
+            )
+            
+            // from the array of non common teachers for particular id add that class to them.
+            await Faculty.updateMany(
+                { _id: { $in: notCommonTeachers } },
+                { $push: { classes: updatedClass.id } }
+            )
+            
+            res.status(200).json(updatedClass)
+        } catch (err) {
+            res.status(503).json(err)
+        }
+    } else {
+        res.status(404).json("class not found")
     }
 }
 

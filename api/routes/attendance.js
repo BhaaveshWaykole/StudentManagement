@@ -5,7 +5,8 @@ import {
     updateAttendance,
     createAttendance,
     getAttendance,
-    deleteAttendance
+    deleteAttendance,
+    getStudentsForAttendance
 } from '../controllers/attendanceController.js';
 
 
@@ -17,6 +18,8 @@ router.put('/:id', updateAttendance)
 router.get('/:id', getAttendance)
 router.delete('/:id', deleteAttendance)
 
+
+router.get("/:id", getStudentsForAttendance)
 // router.get('/:id', getStudent)
 
 export default router
