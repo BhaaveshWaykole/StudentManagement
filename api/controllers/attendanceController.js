@@ -53,32 +53,34 @@ export const createAttendance = async (req, res) => {
 export const updateAttendance = async (req, res) => {
     try {
         const getAttendance = await Attendance.findById(req.params.id);
-        // console.log(getAttendance.id)
-        // const dateToFind = req.body.date;
         const classId = await Classroom.findOne({ _id: req.body.cId })
-        // console.log(dateToFind)
-        // const attendanceRecord = await Attendance.findOne({ date : dateToFind })
-        console.log(getAttendance.cId)
-        console.log(classId.id)
         if (classId.id === getAttendance.cId) {
             try {
                 const getStudids = getAttendance.studentPresent
                 // filter all those student ids not present in attendance already so that we will get attendance to mark of student which is requested by teacher to mark, andit just ensures if already marked it will skip those 
                 const notCommonStudents = req.body.studentPresent.filter(studentId => !getStudids.includes(studentId));
                 // filter - returns array of student who are not present.
-                let updateAttendees;
-                if (notCommonStudents) {
-                    const updateAttendeesPromises = notCommonStudents.map(async studentId => {
-                        // Update getAttendance by pushing the student ID
-                        return Attendance.findByIdAndUpdate(
-                            getAttendance.id,
-                            { $push: { studentPresent: studentId } },
-                            { new: true }
-                        );
-                    });
-                    const updatedAttendees = await Promise.all(updateAttendeesPromises);
-                    res.status(200).json(updatedAttendees);
+
+                if (notCommonStudents > 0) {
+                    // Update getAttendance by pushing the student ID
+                    const updateAttendees = await Attendance.findByIdAndUpdate(
+                        req.params.id,
+                        {
+                            $push: {
+                                studentPresent: { $each: notCommonStudents }
+                            }
+                        },
+                        { new: true }
+                    );
+
+                    await Student.updateMany(
+                        { _id: { $in: notCommonStudents } },
+                        { $push: { attendance: updateAttendees.id } }
+                    )
+                    res.status(200).json(getAttendance.studentPresent);
+                    // res.status(200).json("Success");
                 }
+                // const updatedAttendees = await Promise.all(updateAttendeesPromises);
             }
             catch (err) {
                 res.status(200).json(err);
@@ -108,6 +110,7 @@ export const deleteAttendance = async (req, res) => {
             try {
                 const studIds = await Student.find({ attendance: req.params.id })
                 // promise all -> used to handle multiple async requests in map() concurrently
+                // can use attendance : {$each} too instead
                 const studIdlist = await Promise.all(studIds.map(async (ids) => {
                     // pull used to delete or pull of a specific record.
                     await Student.updateOne(
@@ -127,3 +130,23 @@ export const deleteAttendance = async (req, res) => {
         res.status(err)
     }
 }
+
+export const getStudentsForAttendance = (req, res) => {
+
+}
+
+
+
+
+// Under update attendance if needed :- check once at final .
+//
+// get a particular student where attendance -> class id and student class id is same i.e student is in that class in which attendance is being marked (which is in id in paramater).
+
+// Might not need this method above prolly -> cause while displaying attendance to mark already show array of students in that class only hence no need to check if the attendance  class id and stud class id matches as students of that class will be displayed only i.e class.student array. then mark so without this can work
+// get student from non common students.
+
+// const getStudsInclass = await Student.find({ _id: { $in: notCommonStudents } });
+
+// check frm which if the person is in class and attendance -> class id is same.
+// const attendanceStuds = getStudsInclass.filter(stud => stud.classes.some(classId => classId.toString() === getAttendance.cId.toString()));
+//
