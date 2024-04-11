@@ -3,7 +3,9 @@ import Classroom from '../models/Classroom.js';
 import Attendance from '../models/Attendance.js';
 import Faculty from '../models/Faculty.js';
 import Student from '../models/Student.js';
+import classroom from '../models/Classroom.js';
 
+// C
 export const createClassroom = async (req, res) => {
     // check if class with the name, with same teacher with same batch, if we get a class then class already exist even one fails we will create a new class ofc.
 
@@ -51,6 +53,7 @@ export const createClassroom = async (req, res) => {
     }
 }
 
+//U 
 export const updateClassroom = async (req, res) => {
     const getClass = await Classroom.findById(req.params.id);
     if (getClass) {
@@ -78,13 +81,13 @@ export const updateClassroom = async (req, res) => {
                 { _id: { $in: notCommonStudents } },
                 { $push: { classes: updatedClass.id } }
             )
-            
+
             // from the array of non common teachers for particular id add that class to them.
             await Faculty.updateMany(
                 { _id: { $in: notCommonTeachers } },
                 { $push: { classes: updatedClass.id } }
             )
-            
+
             res.status(200).json(updatedClass)
         } catch (err) {
             res.status(503).json(err)
@@ -94,52 +97,35 @@ export const updateClassroom = async (req, res) => {
     }
 }
 
+// R
 export const getClassroom = async (req, res) => {
     try {
-        // const getFaculty = Faculty.findById(req.params.id)
-        // create class -- get teacher id from param , maybe approach different later
-        const newClassroom = new Classroom({
-            name: req.body.name,
-            teachers: req.params.id
-        });
-        // adding class to teacher table :-
-        const updateFaculty = await Faculty.findByIdAndUpdate(
-            req.params.id,
-            { $push: { classes: newClassroom._id } },
-            { new: true }
-        );
-        // console.log("after")
-        // Save User
-        const classroom = await newClassroom.save();
-        res.status(200).json(classroom)
-        console.log(updateFaculty)
-        // console.log("done")
+        const getClass = await Classroom.findById(req.params.id);
+        // console.log(getClass)
+        res.status(200).json(getClass)
     } catch (err) {
-        res.send(err)
+        res.json(err)
     }
 }
 
+// D
 export const deleteClassroom = async (req, res) => {
     try {
-        // const getFaculty = Faculty.findById(req.params.id)
-        // create class -- get teacher id from param , maybe approach different later
-        const newClassroom = new Classroom({
-            name: req.body.name,
-            teachers: req.params.id
-        });
-        // adding class to teacher table :-
-        const updateFaculty = await Faculty.findByIdAndUpdate(
-            req.params.id,
-            { $push: { classes: newClassroom._id } },
-            { new: true }
+        const getClass = await Classroom.findById(req.params.id);
+        const studentIds = getClass.students
+        const getAttendance = await Attendance.find({ cId: getClass.id })
+        // pull that class from classes , also pull attendance of that class from students
+        await Student.updateMany(
+            { _id: { $in: studentIds } },
+            { $pull: { classes: req.params.id } }
         );
-        // console.log("after")
-        // Save User
-        const classroom = await newClassroom.save();
-        res.status(200).json(classroom)
-        console.log(updateFaculty)
+        await Attendance.deleteMany({ cId: getClass.id });
+        await Classroom.findByIdAndDelete(req.params.id)
+        res.status(200).json("Success")
         // console.log("done")
     } catch (err) {
-        res.send(err)
+        res.status(500).json({ error: err.message });
     }
 }
+
+// CURD

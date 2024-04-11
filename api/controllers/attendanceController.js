@@ -1,7 +1,6 @@
 import Classroom from '../models/Classroom.js';
 import Attendance from '../models/Attendance.js';
 import Student from '../models/Student.js';
-import attendance from '../models/Attendance.js';
 
 // C 
 export const createAttendance = async (req, res) => {
@@ -131,8 +130,18 @@ export const deleteAttendance = async (req, res) => {
     }
 }
 
-export const getStudentsForAttendance = (req, res) => {
-
+export const getStudentsForAttendance = async (req, res) => {
+    // console.log("hi")
+    const getAttendanceDoc = await Attendance.findById(req.params.id);
+    const getClassroomDoc = await Classroom.findById(getAttendanceDoc.cId);
+    try {
+        const attendanceArr = getAttendanceDoc.studentPresent
+        const studenArr = getClassroomDoc.students
+        const studentsWithoutAttendance = studenArr.filter(student => !attendanceArr.includes(student));
+        res.status(200).json(studentsWithoutAttendance)
+    } catch (err) {
+        res.status(503).json(err)
+    }
 }
 
 
