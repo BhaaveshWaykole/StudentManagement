@@ -91,3 +91,20 @@ export const deleteStudent = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+export const getTotalAttendance = async (req, res) => {
+    try {
+        const student = await Student.findById(req.params.id);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        let totalPresent = 0;
+        student.attendance.forEach(record => {
+            totalPresent += record.total_present;
+        });
+
+        res.status(200).json({ total_present: totalPresent });
+    } catch (error) {
+        res.status(500).json('An error occurred while calculating total present');
+    }
+}
