@@ -1,4 +1,7 @@
 import Student from '../models/Student.js';
+import Classroom from '../models/Classroom.js';
+import Attendance from '../models/Attendance.js';
+
 import bcrypt from 'bcrypt'
 
 export const updateStudent = async (req, res) => {
@@ -64,5 +67,44 @@ export const getStudent = async (req, res) => {
         // console.log("done")
     } catch (err) {
         return res.json(err)
+    }
+}
+
+export const deleteStudent = async (req, res) => {
+    try {
+        const student = await Student.findById(req.params.id);
+        if (!student) {
+            return res.status(404).json({ error: "Student not found" });
+        }
+        const classroomIds = student.classes;
+        await Classroom.updateMany(
+            { _id: { $in: classroomIds } },
+            { $pull: { students: req.params.id } }
+        );
+        await Attendance.updateMany(
+            { "studentPresent.studentId": req.params.id },
+            { $pull: { studentPresent: { studentId: req.params.id } } }
+        );
+        await Student.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: "Student deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+export const getTotalAttendance = async (req, res) => {
+    try {
+        const student = await Student.findById(req.params.id);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        let totalPresent = 0;
+        student.attendance.forEach(record => {
+            totalPresent += record.total_present;
+        });
+
+        res.status(200).json({ total_present: totalPresent });
+    } catch (error) {
+        res.status(500).json('An error occurred while calculating total present');
     }
 }

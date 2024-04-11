@@ -6,6 +6,7 @@ import studentsRoute from './routes/students.js'
 import teachersRoute from './routes/teacher.js'
 import classroomRoute from './routes/classroom.js'
 import attendanceRoute from './routes/attendance.js'
+import announcementRoute from './routes/announcements.js'
 
 const app = express();
 dotenv.config()
@@ -21,6 +22,7 @@ app.use('/api/students', studentsRoute);
 app.use('/api/teachers', teachersRoute);
 app.use('/api/classroom', classroomRoute);
 app.use('/api/attendance/', attendanceRoute);
+app.use('/api/announcement/', announcementRoute);
 
 app.listen(8000, () => {
     console.log('Student ZIA 8000 :)');

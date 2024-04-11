@@ -12,6 +12,10 @@ const announcementSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    cId : {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
