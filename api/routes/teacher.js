@@ -4,7 +4,8 @@ const router = express.Router();
 import {
     postFaculty,
     getFaculty,
-    updateFaculty
+    updateFaculty,
+    deleteTeacher
 } from '../controllers/teacherController.js';
 
 //Update :-
@@ -12,7 +13,7 @@ import {
 router.put('/:id', updateFaculty)
 
 // Delete :-
-// router.delete('/:id', deleteTeacher)
+router.delete('/:id', deleteTeacher)
 
 // get a Teacher :-
 // router.get('/:id', getTeacher)

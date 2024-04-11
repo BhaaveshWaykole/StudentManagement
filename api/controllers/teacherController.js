@@ -1,4 +1,6 @@
 import Faculty from '../models/Faculty.js';
+import Classroom from '../models/Classroom.js';
+
 import bcrypt from 'bcrypt'
 
 export const updateFaculty = async (req, res) => {
@@ -58,5 +60,24 @@ export const getFaculty = async (req, res) => {
         // console.log("done")
     } catch (err) {
         return res.json(err)
+    }
+}
+
+export const deleteTeacher = async (req, res) => {
+    try {
+        const deleteFaculty = await Faculty.findById(req.params.id);
+        if (!deleteFaculty) {
+            return res.status(404).json({ message: 'Faculty member not found' });
+        }
+        await Faculty.findByIdAndDelete(req.params.id);
+        await Classroom.updateMany(
+            { teachers: req.params.id },
+            { $pull: { teachers: req.params.id } }
+        );
+        res.status(200).json({ message: 'Faculty member deleted successfully' });
+    } catch (error) {
+        // Handle errors
+        console.error('Error deleting faculty member:', error);
+        res.status(500).json({ message: 'An error occurred while deleting faculty member' });
     }
 }
