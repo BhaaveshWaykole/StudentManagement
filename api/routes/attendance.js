@@ -19,7 +19,7 @@ router.get('/:id', getAttendance)
 router.delete('/:id', deleteAttendance)
 
 
-router.get("/:id", getStudentsForAttendance)
+router.get("/remStudents/:id", getStudentsForAttendance) // remaining students of class.
 // router.get('/:id', getStudent)
 
 export default router
