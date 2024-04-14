@@ -144,6 +144,20 @@ export const getStudentsForAttendance = async (req, res) => {
     }
 }
 
+export const getAbsentStudentsForAttendance = async (req, res) => {
+    // console.log("hi")
+    const getAttendanceDoc = await Attendance.findById(req.params.id);
+    const getClassroomDoc = await Classroom.findById(getAttendanceDoc.cId);
+    try {
+        const attendanceArr = getAttendanceDoc.studentPresent
+        const studenArr = getClassroomDoc.students
+        const studentsWithoutAttendance = studenArr.filter(student => !attendanceArr.includes(student));
+        res.status(200).json(studentsWithoutAttendance)
+    } catch (err) {
+        res.status(503).json(err)
+    }
+}
+
 
 
 

@@ -108,3 +108,22 @@ export const getTotalAttendance = async (req, res) => {
         res.status(500).json('An error occurred while calculating total present');
     }
 }
+
+export const getAllStudentsClass = async (req, res) => {
+    try {
+        const classroom = await Classroom.findById(req.params.id);
+        if (!classroom) {
+            return res.status(404).json({ message: 'Classroom not found' });
+        }
+        const studentIds = classroom.students;
+        const studentNames = await Promise.all(studentIds.map(async (studentId) => {
+            const student = await Student.findById(studentId);
+            return student;
+        }));
+
+        res.status(200).json(studentNames);
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        res.status(500).json('An error occurred while fetching students');
+    }
+}
