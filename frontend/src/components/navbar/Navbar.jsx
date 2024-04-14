@@ -17,7 +17,6 @@ export default function Navbar() {
           <img src="profilePic.jpeg" alt="ProfilePic" className='rounded-full h-12 w-12' />
         </a>
       </div>
-
     </div>
   )
 }
