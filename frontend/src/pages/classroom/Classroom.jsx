@@ -34,7 +34,7 @@ export default function Clasroom() {
   return (
     <div className="Main-corousel bg-red-500 mx-10 mt-10 rounded-rnd-6p">
       <div className="navbar">
-        <ClassNavbar/>
+        <ClassNavbar />
       </div>
       <div className="Main-Name bg-amber-600 h-60 p-3 rounded-rnd-6p">
         <h1 className="text-center font-poppins-500 text-3xl">
