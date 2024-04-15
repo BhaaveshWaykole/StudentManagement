@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function AttendanceCard() {
     const [attendanceData, setAttendanceData] = useState([]);
-
+    const {classId} = useParams()
     useEffect(() => {
         const fetchAttendanceData = async () => {
             try {
