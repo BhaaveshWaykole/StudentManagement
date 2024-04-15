@@ -121,6 +121,7 @@ export const getAllStudentsClass = async (req, res) => {
             return student;
         }));
 
+        
         res.status(200).json(studentNames);
     } catch (error) {
         console.error('Error fetching students:', error);

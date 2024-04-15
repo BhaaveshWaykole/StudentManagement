@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import AnnouncementCard from '../../components/announcements/AnnouncementCard.jsx'
 import ClassNavbar from '../../components/navbar/ClassNavbar.jsx'
+import { useParams } from 'react-router-dom';
 
 export default function Clasroom() {
   const [classInfo, setClassInfo] = useState({});
