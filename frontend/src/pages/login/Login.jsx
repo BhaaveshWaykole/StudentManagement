@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.js';
-
 import './Login.css'
 
 export const Login = () => {
@@ -8,6 +8,7 @@ export const Login = () => {
   const passwordRef = useRef(null);
   const userTypeRef = useRef(null);
   const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleLogin = async () => {
     const email = emailRef.current.value;
@@ -19,10 +20,10 @@ export const Login = () => {
       console.error('Please enter email and password');
       return;
     }
-
     try {
       // Call the login method with email, password, and user type
       await login(email, password, userType);
+      navigate('/home')
       // Redirect or perform other actions after successful login
     } catch (error) {
       console.error('Login failed:', error);

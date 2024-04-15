@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useParams } from 'react';
 import axios from 'axios';
 
 function AttendanceCard() {
     const [attendanceData, setAttendanceData] = useState([]);
-
+    const { classId } = useParams();
     useEffect(() => {
         const fetchAttendanceData = async () => {
             try {

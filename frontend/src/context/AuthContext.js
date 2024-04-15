@@ -6,17 +6,19 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const login = async (id, userType) => {
+  const login = async (email, password, userType) => {
     try {
       let userData;
       if (userType === 'student') {
-        userData = await axios.get(`/api/student/${id}`);
+        userData = await axios.post('/api/students/login', { email, password, userType });
       } else if (userType === 'faculty') {
-        userData = await axios.get(`/api/faculty/${id}`);
+        userData = await axios.post('/api/faculty/login', { email, password, userType });
       }
+      console.log(userData.data)
       setUser(userData.data);
     } catch (error) {
       console.error('Login failed:', error);
+      throw error; // Re-throw the error to be caught by the login component
     }
   };
 
