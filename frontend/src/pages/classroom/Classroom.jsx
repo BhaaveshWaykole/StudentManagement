@@ -1,35 +1,70 @@
-import React from 'react'
+import React, { useEffect, useState, useParams } from 'react'
+import axios from 'axios'
 import AnnouncementCard from '../../components/announcements/AnnouncementCard.jsx'
 import ClassNavbar from '../../components/navbar/ClassNavbar.jsx'
 
 export default function Clasroom() {
+  const [classInfo, setClassInfo] = useState({});
+  const [announcements, setAnnouncements] = useState([]);
+  const { classId } = useParams();
+
+  useEffect(() => {
+    const fetchClassDetails = async () => {
+      try {
+        const response = await axios.get(`/api/classroom/${classId}`);
+        setClassInfo(response.data);
+      } catch (error) {
+        console.error('Failed to fetch class details', error);
+      }
+    };
+    fetchClassDetails();
+  }, [classId]);
+
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        const response = await axios.get(`/api/announcements/${classId}`);
+        setAnnouncements(response.data);
+        // console.log(response.data)
+      } catch (error) {
+        console.error('Failed to fetch announcements', error);
+      }
+    };
+
+    fetchAnnouncements();
+  }, [classId]);
+
   const goToAnnouncement = (announcementId) => {
     console.log(announcementId);
+    // Implement navigation or other logic as needed
   };
+  // const goToAnnouncement = (announcementId) => {
+  //   console.log(announcementId);
+  // };
 
-  let announcements = [
-    {
-      id: 1,
-      title: "Welcome to the Class!",
-      teachers: "Vipin T",
-      content: "Dear students, welcome to our class. I'm excited to start this journey with you all. Please make sure to review the syllabus and let me know if you have any questions.",
-      date: "April 5, 2024"
-    },
-    {
-      id: 2,
-      title: "Assignment Submission Reminder",
-      teachers: "Deepak D",
-      content: "Just a reminder that the deadline for the first assignment is approaching. Make sure to submit it before the end of the week. Good luck!",
-      date: "April 10, 2024"
-    },
-    {
-      id: 3,
-      title: "Office Hours Update",
-      teachers: "Parija B",
-      content: "I've updated my office hours for this semester. Please check the schedule on the course website and feel free to drop by if you have any questions or concerns.",
-      date: "April 7, 2024"
-    }
-  ];
+  // let announcements = [
+  //   {
+  //     id: 1,
+  //     title: "Welcome to the Class!",
+  //     teachers: "Vipin T",
+  //     content: "Dear students, welcome to our class. I'm excited to start this journey with you all. Please make sure to review the syllabus and let me know if you have any questions.",
+  //     date: "April 5, 2024"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Assignment Submission Reminder",
+  //     teachers: "Deepak D",
+  //     content: "Just a reminder that the deadline for the first assignment is approaching. Make sure to submit it before the end of the week. Good luck!",
+  //     date: "April 10, 2024"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Office Hours Update",
+  //     teachers: "Parija B",
+  //     content: "I've updated my office hours for this semester. Please check the schedule on the course website and feel free to drop by if you have any questions or concerns.",
+  //     date: "April 7, 2024"
+  //   }
+  // ];
 
   return (
     <div className="Main-corousel bg-red-500 mx-10 mt-10 rounded-rnd-6p">
@@ -38,11 +73,11 @@ export default function Clasroom() {
       </div>
       <div className="Main-Name bg-amber-600 h-60 p-3 rounded-rnd-6p">
         <h1 className="text-center font-poppins-500 text-3xl">
-          Classroom Name
+          {classInfo.className}
         </h1>
         <h3 className="p-3 rounded-rnd-6p h-4/5 bg-green-500 flex flex-col flex-col-reverse font-poppins-200">
-          <p>Year (batch)</p>
-          -Faculty name
+          <p>{classInfo.yearBatch}</p>
+          -{classInfo.facultyName}
         </h3>
       </div>
 

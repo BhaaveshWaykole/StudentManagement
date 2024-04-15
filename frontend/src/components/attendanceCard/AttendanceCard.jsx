@@ -1,27 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function AttendanceCard() {
+    const [attendanceData, setAttendanceData] = useState([]);
+
+    useEffect(() => {
+        const fetchAttendanceData = async () => {
+            try {
+                // Replace '/api/attendance/{classId}' with your actual endpoint
+                const response = await axios.get(`/api/attendance/${classId}`);
+                setAttendanceData(response.data);
+            } catch (error) {
+                console.error('Failed to fetch attendance data', error);
+            }
+        };
+        fetchAttendanceData();
+    }, []);
+
     return (
         <div>
-            <div className="flex flex-row bg-gray-500 my-10 mx-5 rounded-rnd-6p p-6">
-                <div>
-                    <h4>
-                        Date
-                        {/* timestamp of when posted */}
-                    </h4>
+            {attendanceData.map((attendance) => (
+                <div key={attendance.date} className="flex flex-row bg-gray-500 my-10 mx-5 rounded-rnd-6p p-6">
+                    <div>
+                        <h4>{attendance.date}</h4>
+                    </div>
+                    <div className='ml-5 profile flex flex-row mr-2'>
+                        <h3>Number of students present: {attendance.presentCount}</h3>
+                    </div>
                 </div>
-                <div className='ml-5 profile flex flex-row mr-2'>
-                    {/* redirect to profile page */}
-                    <h3> Number of students present </h3>
-                </div>
-            </div>
-            <div className='announceContent mt-2 h-fit text-wrap p-3'>
-                <p>
-                    {/* {announceInfo.content} */}
-                </p>
-            </div>
+            ))}
         </div>
-    )
+    );
 }
 
-export default AttendanceCard
+export default AttendanceCard;

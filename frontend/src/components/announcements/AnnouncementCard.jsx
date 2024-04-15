@@ -1,6 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function AnnouncementCard({ announceInfo }) {
+  const [announcementData, setAnnouncementData] = useState();
+  const [teachers, setTeachers] = useState();
+  // console.log(announceInfo)
+  useEffect(() => {
+    const fetchAnnouncementData = async () => {
+      try {
+        const response = await axios.get(`/api/teachers/${announceInfo.teacher}`);
+        setAnnouncementData(response.data.name);
+        // console.log(response.data.name)
+      } catch (error) {
+        console.error('Failed to fetch announcement data', error);
+      }
+    };
+    fetchAnnouncementData();
+  }, [announceInfo.id]);
+  const dateTime = new Date(announceInfo.createdAt);
+  const date = dateTime.toDateString(); // Get the date part
+  const hours = dateTime.getHours();
+  const minutes = dateTime.getMinutes();
+  const seconds = dateTime.getSeconds();
+  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+
   return (
     <div>
       <div className="flex flex-row">
@@ -12,10 +36,15 @@ export default function AnnouncementCard({ announceInfo }) {
         </div>
         <div>
           <h2>
-            {announceInfo.teachers}
+            {announcementData}
           </h2>
           <h4 className='text-xs'>
-            posted now
+            <div>
+              {date}
+            </div>
+            <div>
+              {formattedTime}
+            </div>
             {/* timestamp of when posted */}
           </h4>
         </div>
