@@ -129,3 +129,12 @@ export const deleteClassroom = async (req, res) => {
 }
 
 // CURD
+
+export const getAllClassrooms = async (req, res) => {
+    try {
+        const classrooms = await Classroom.find({});
+        res.status(200).json(classrooms);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
