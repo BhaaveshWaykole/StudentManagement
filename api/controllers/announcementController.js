@@ -19,16 +19,17 @@ export const createAnnouncement = async (req, res) => {
 
 export const getAnnouncement = async (req, res) => {
     try {
-        const classroom = await Classroom.findById(req.params.id).populate('feed');
+        const classroom = await Classroom.findById(req.params.id);
         if (!classroom) {
             return res.status(404).json({ message: 'Classroom not found' });
         }
-
-        res.status(200).json(classroom.feed);
+        const announcements = await Announcement.find({ _id: { $in: classroom.feed } });
+        res.status(200).json(announcements);
     } catch (error) {
         console.error('Error retrieving announcements:', error);
         res.status(500).json({ message: 'An error occurred while retrieving announcements' });
     }
+
 }
 
 export const updateAnnouncement = async (req, res) => {

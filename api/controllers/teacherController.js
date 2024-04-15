@@ -81,3 +81,24 @@ export const deleteTeacher = async (req, res) => {
         res.status(500).json({ message: 'An error occurred while deleting faculty member' });
     }
 }
+
+export const getFacultyClasses = async (req, res) => {
+    const teacherId = req.params.id;
+
+    try {
+        // Find the teacher by ID
+        const teacher = await Faculty.findById(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({ message: 'Teacher not found' });
+        }
+
+        // Get the classes associated with the teacher
+        const classes = await Classroom.find({ _id: { $in: teacher.classes } });
+
+        res.status(200).json(classes);
+    } catch (error) {
+        console.error('Error fetching classes:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
