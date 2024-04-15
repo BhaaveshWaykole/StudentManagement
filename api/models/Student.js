@@ -43,6 +43,10 @@ const studentSchema = new mongoose.Schema({
                 }
             }
         ]
+    },
+    userType : {
+        type : String,
+        required : true
     }
 },
 );

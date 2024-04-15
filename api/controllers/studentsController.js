@@ -109,7 +109,7 @@ export const getTotalAttendance = async (req, res) => {
     }
 }
 
-export const getAllStudentsClass = async (req, res) => {
+export const getAllStudentsOfClass = async (req, res) => {
     try {
         const classroom = await Classroom.findById(req.params.id);
         if (!classroom) {
@@ -126,5 +126,46 @@ export const getAllStudentsClass = async (req, res) => {
     } catch (error) {
         console.error('Error fetching students:', error);
         res.status(500).json('An error occurred while fetching students');
+    }
+}
+
+export const loginStudent = async (req, res) => {
+    const { email, password, userType} = req.body;
+    try {
+        const student = await Student.findOne({ email });
+        if (!student || !bcrypt.compareSync(password, student.password)) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        res.status(200).json(student);
+    } catch (error) {
+        console.error('Student login failed:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+export const getStudentClasses = async (req, res) => {
+    const studId = req.params.id;
+
+    try {
+        // Find the student by ID
+        const student = await Student.findById(studId);
+
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        // Get the classes associated with the student
+        const classIds = student.classes;
+
+        // Find all classes with the retrieved IDs
+        const classes = await Classroom.find({ _id: { $in: classIds } });
+
+        // Extract class names from classes
+        const classNames = classes.map((classItem) => classItem.name);
+
+        res.status(200).json(classes);
+    } catch (error) {
+        console.error('Error fetching classes:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 }

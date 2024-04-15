@@ -102,3 +102,18 @@ export const getFacultyClasses = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+export const getClassFaculty = async (req, res) => {
+    const classId = req.params.id;
+    try {
+        const foundClass = await Classroom.findById(classId);
+        if (!foundClass) {
+            return res.status(404).json({ message: 'Class not found' });
+        }
+        const facultyMembers = await Faculty.find({ classes: { $in: [foundClass.id] } });
+        res.status(200).json(facultyMembers);
+    } catch (err) {
+        console.error('Error fetching faculty data:', err);
+        res.status(500).json({ message: 'Error fetching faculty data' });
+    }
+}

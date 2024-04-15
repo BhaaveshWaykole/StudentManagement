@@ -1,12 +1,13 @@
-import React, { useParams } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function ClassNavbar() {
   const { classId } = useParams();
   const navigate = useNavigate();
   const AttendanceCardNav = () => {
-    navigate(`/attendance/${classId}`)
+    navigate(`/classroom/markattendance/${classId}`)
   }
   const studentList = () => {
     navigate(`/students/class/${classId}`)

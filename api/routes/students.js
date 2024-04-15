@@ -7,7 +7,9 @@ import {
     updateStudent,
     deleteStudent,
     getTotalAttendance,
-    getAllStudentsClass
+    getAllStudentsOfClass,
+    loginStudent,
+    getStudentClasses
 } from '../controllers/studentsController.js';
 //Update :-
 // router.put("/:id", updateStudent);
@@ -20,9 +22,11 @@ router.delete('/:id', deleteStudent)
 // router.get('/:id', getStudent)
 router.get('/:id', getStudent)
 
-router.get('/class/:id', getAllStudentsClass)
+router.get('/studClass/:id', getAllStudentsOfClass)
+router.get('/class/:id', getStudentClasses)
 
 router.post('/register', postStudent)
+router.post('/login', loginStudent);
 
 router.get("/totalPresent/:id/", getTotalAttendance)
 export default router
