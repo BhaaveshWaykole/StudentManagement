@@ -117,3 +117,17 @@ export const getClassFaculty = async (req, res) => {
         res.status(500).json({ message: 'Error fetching faculty data' });
     }
 }
+
+export const loginFaculty = async (req, res) => {
+    const { email, password, userType } = req.body;
+    try {
+        const faculty = await Faculty.findOne({ email });
+        if (!faculty || !bcrypt.compareSync(password, faculty.password)) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+        res.status(200).json(faculty);
+    } catch (error) {
+        console.error('faculty login failed:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};

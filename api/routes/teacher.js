@@ -7,7 +7,8 @@ import {
     updateFaculty,
     deleteTeacher,
     getFacultyClasses,
-    getClassFaculty
+    getClassFaculty,
+    loginFaculty
 } from '../controllers/teacherController.js';
 
 //Update :-
@@ -22,6 +23,7 @@ router.delete('/:id', deleteTeacher)
 router.get('/:id', getFaculty)
 router.get('/teacherName/:id', getClassFaculty)
 router.get('/class/:id', getFacultyClasses)
+router.post('/login', loginFaculty)
 
 router.post('/register', postFaculty)
 export default router
