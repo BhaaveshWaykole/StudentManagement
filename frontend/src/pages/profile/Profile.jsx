@@ -35,7 +35,8 @@ function Profile() {
                 <div className='profile flex flex-col mr-2 pt-2 w-full mt-5'>
                     <a href="/profile" className="flex justify-center">
                         {/* <img src='profilePic.jpeg' alt="ProfilePic" className='rounded-full h-60 w-60' /> */}
-                        <img src={`http://localhost:3000/${user.photo}`} alt="ProfilePic" className='rounded-full h-60 w-60'  />
+                        {/* <img src={`http://localhost:3000/${user.photo}`} alt="ProfilePic" className='rounded-full h-60 w-60'  /> */}
+                        <img src={process.env.PUBLIC_URL + user.photo} alt="ProfilePic" className='rounded-full h-60 w-60'  />
                     </a>
 
                     <div className='font-semibold text-6xl text-center'>

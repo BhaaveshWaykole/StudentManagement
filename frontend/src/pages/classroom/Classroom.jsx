@@ -30,8 +30,10 @@ export default function Clasroom() {
     const fetchClassDetails = async () => {
       try {
         // console.log("HI", classId)
+        // console.log("HI", classId)
         const response = await axios.get(`/api/classroom/${classId}`);
         setClassInfo(response.data);
+        // console.log(response.data)
         // console.log(response.data)
       } catch (error) {
         console.error('Failed to fetch class details', error);
@@ -67,6 +69,19 @@ export default function Clasroom() {
     fetchTeacher();
   }, [classInfo.teachers]);
 
+  useEffect(() => {
+    const fetchTeacher = async () => {
+      try {
+        const response = await axios.get(`/api/teachers/teacherName/${classId}`);
+        setTeacherName(response.data[0]);
+      } catch (error) {
+        console.error('Failed to fetch teacher', error);
+      }
+    };
+
+    fetchTeacher();
+  }, [classInfo.teachers]);
+
   const goToAnnouncement = (announcementId) => {
     console.log(announcementId);
     // Implement navigation or other logic as needed
@@ -80,9 +95,11 @@ export default function Clasroom() {
       <div className="Main-Name bg-amber-600 h-60 p-3 rounded-rnd-6p">
         <h1 className="text-center font-poppins-500 text-3xl">
           {classInfo.name}
+          {classInfo.name}
         </h1>
         <h3 className="p-3 rounded-rnd-6p h-4/5 bg-green-500 flex flex-col flex-col-reverse font-poppins-200">
           <p>{classInfo.yearBatch}</p>
+          -{teacher.name}
           -{teacher.name}
         </h3>
       </div>

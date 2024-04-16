@@ -6,7 +6,7 @@ function ClassNavbar() {
   const { classId } = useParams();
   const navigate = useNavigate();
   const AttendanceCardNav = () => {
-    navigate(`/attendance/${classId}`)
+    navigate(`/classroom/markattendance/${classId}`)
   }
   const studentList = () => {
     navigate(`/students/class/${classId}`)

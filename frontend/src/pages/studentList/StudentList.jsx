@@ -18,7 +18,8 @@ const StudentList = () => {
       };
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/students/class/${classId}/`);
+        console.log(classId);
+        const response = await axios.get(`http://localhost:8000/api/students/studclass/${classId}/`);
         setStudents(response.data);
       } catch (error) {
         console.error(error);

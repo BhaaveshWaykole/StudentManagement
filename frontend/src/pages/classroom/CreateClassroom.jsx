@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext.js';
 import axios from 'axios'
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar.jsx';
 
 function CreateClassroom() {
