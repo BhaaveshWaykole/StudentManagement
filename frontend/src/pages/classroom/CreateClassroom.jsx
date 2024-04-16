@@ -1,56 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useAuth } from '../../context/AuthContext.js';
+import axios from 'axios'
+import { useParams } from 'react-router-dom';
+import Navbar from '../../components/navbar/Navbar.jsx';
 
 function CreateClassroom() {
-    const [classroom, setClassroom] = useState({
-        name: '',
-        batch: ''
-    });
+    const { user } = useAuth();
+    const nameRef = useRef();
+    const batchRef = useRef();
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setClassroom(prevClassroom => ({
-            ...prevClassroom,
-            [name]: value
-        }));
-    };
+    useEffect(() => {
+        const createRoom = async () => {
+            try {
+                await axios.post("/api/classroom/regClass", { name: nameRef.current.value, teachers: user._id, batch: batchRef.current.value });
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        createRoom();
+    }, [user._id, nameRef.current.value, batchRef.current.value]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Submitting Classroom Data:', classroom);
-        setClassroom({
-            name: '',
-            batch: ''
-        });
+        try {
+            await axios.post("/api/classroom/regClass", { name: nameRef.current.value, teachers: user._id, batch: batchRef.current.value });
+        } catch (err) {
+            console.log(err);
+        }
     };
-
     return (
         <div>
-            <h1>Create Classroom</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Classroom Name:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={classroom.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="batch">Batch:</label>
-                    <input
-                        type="text"
-                        id="batch"
-                        name="batch"
-                        value={classroom.batch}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Create Classroom</button>
-            </form>
+            <Navbar />
+            <div className='flex justify-center items-center h-screen flex-col text-center bg-gray-200'>
+                <h1 className='font-bold text-3xl'>Create Classroom</h1>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
+                    <div>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            ref={nameRef}
+                            className='border-black rounded-md border-2 p-1'
+                            placeholder='Classroom name'
+                            required
+                        />
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            id="batch"
+                            placeholder='batch'
+                            name="batch"
+                            ref={batchRef}
+                            className='border-black rounded-md border-2 p-1'
+                            required
+                        />
+                    </div>
+                    <button type="submit" className='bg-gray-500 rounded-md'>Create Classroom</button>
+                </form>
+            </div>
         </div>
     );
 }

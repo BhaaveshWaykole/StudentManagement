@@ -9,7 +9,7 @@ import CreateClassroom from './pages/classroom/CreateClassroom.jsx';
 // import Temp from './components/NotPresentAttendance.jsx'
 import { Routes, Route } from 'react-router-dom';
 import StudentList from './pages/studentList/StudentList.jsx';
-
+import Profile from './pages/profile/Profile.jsx';
 function App() {
   return (
     <div className="App">
@@ -21,6 +21,7 @@ function App() {
           <Route path="/classroom/:classId" element={<Classroom />} />
           <Route path="/attendance" element={<AttendanceCard />} />
           <Route path='/students/class/:classId/' element={<StudentList/>}/>
+          <Route path='/profile' element={<Profile/>}/> 
         </Routes>
       </AuthProvider>
     </div>

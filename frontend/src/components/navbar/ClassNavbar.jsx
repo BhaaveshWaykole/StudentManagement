@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
@@ -9,13 +8,8 @@ function ClassNavbar() {
   const AttendanceCardNav = () => {
     navigate(`/attendance/${classId}`)
   }
-<<<<<<< HEAD
-  const StudentCardNav = () => {
-    navigate(`/students/${classId}`)
-=======
   const studentList = () => {
     navigate(`/students/class/${classId}`)
->>>>>>> refs/remotes/origin/main
   }
   return (
     <div className="ml-5 flex flex-row gap-7 p-5">
