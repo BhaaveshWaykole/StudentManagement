@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import { useAuth } from '../context/AuthContext.js';
+//import { useAuth } from '../context/AuthContext.js';
 
 const Login = () => {
   const emailRef = useRef(null);
