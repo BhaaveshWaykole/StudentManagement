@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 function AttendanceCard() {
     const [attendanceData, setAttendanceData] = useState([]);
-    const {classId} = useParams()
+    const { classId } = useParams();
     useEffect(() => {
         const fetchAttendanceData = async () => {
             try {
