@@ -6,7 +6,8 @@ import {
     createClassroom,
     updateClassroom,
     deleteClassroom,
-    getAllClassrooms
+    getAllClassrooms,
+    postStudentInClass
 } from '../controllers/classroomController.js';
 
 // to create class taking id of teacher to add teacher's name ... change later if needed
@@ -15,6 +16,7 @@ router.put('/:id', updateClassroom)
 router.get('/:id', getClassroom)
 router.delete('/:id', deleteClassroom)
 router.get('/' , getAllClassrooms)
+router.post('/:id', postStudentInClass)
 // router.put('/:id', getClassroom)
 // router.put('/:id', deleteClassroom)
 

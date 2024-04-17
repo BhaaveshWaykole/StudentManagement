@@ -138,3 +138,23 @@ export const getAllClassrooms = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const postStudentInClass = async (req, res) => {
+    try {
+        const { studentPrn, facultyId } = req.body;
+        const classroomId = req.params.id
+        const getClass = await Classroom.findById(classroomId)
+        const student = await Student.find({ prn: studentPrn });
+        const faculty = await Faculty.findById(facultyId);
+        student.class = classId;
+        await student.save();
+        getClass.updateOne(
+            classroomId,
+            { $push: { students: student._id } }
+        )
+        res.status(200).json(getClass);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
