@@ -12,6 +12,7 @@ import StudentList from './pages/studentList/StudentList.jsx';
 import Profile from './pages/profile/Profile.jsx';
 import Signup from './pages/signup/Signup.jsx';
 import MarkAttendance from './pages/markAttendance/MarkAttendance.jsx';
+import AddStuds from './pages/addStuds/AddStuds.jsx';
 function App() {
   return (
     <div className="App">
@@ -26,6 +27,7 @@ function App() {
           <Route path='/students/class/:classId/' element={<StudentList/>}/>
           <Route path='/profile' element={<Profile/>}/> 
           <Route path='/classroom/markattendance/:classId' element={<MarkAttendance/>}/>
+          <Route path='/addStudent/:id' element={<AddStuds/>}/>
         </Routes>
       </AuthProvider>
     </div>
