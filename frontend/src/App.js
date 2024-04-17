@@ -10,6 +10,7 @@ import CreateClassroom from './pages/classroom/CreateClassroom.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StudentList from './pages/studentList/StudentList.jsx';
 import Profile from './pages/profile/Profile.jsx';
+import Signup from './pages/signup/Signup.jsx';
 import MarkAttendance from './pages/markAttendance/MarkAttendance.jsx';
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route exact path="/" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/home" element={<Home />} />
           <Route path="/createclassroom" element={<CreateClassroom />} />
           <Route path="/classroom/:classId" element={<Classroom />} />

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import UserIcon from "../../profileDefaults/UserIcon.jsx"
+
 export default function Navbar() {
   // const PF = process.env.REACT_APP_PUBLIC_FOLDER
   // console.log(PF)
@@ -8,7 +10,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   console.log(user.photo)
   const navigate = useNavigate();
-  console.log(user)
+  // console.log(user)
   const handleLogout = () => {
     logout();
     // You may perform additional logout-related actions here, such as redirecting to the login page
@@ -45,11 +47,14 @@ export default function Navbar() {
 
         {/* display profile pic  */}
         <div className='profile flex flex-col mr-2 pt-2'>
-          <a href="/profile">
+          {/* <a href="/profile">
             <img
               src={`http://localhost:3000/${user.photo}`}
               alt="ProfilePic"
               className='rounded-full h-12 w-12' />
+          </a> */}
+          <a href="/profile">
+            <UserIcon name={user.name ? user.name : user.username} />
           </a>
 
           {/* display username */}

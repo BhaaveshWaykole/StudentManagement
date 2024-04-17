@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext'
 import Navbar from '../../components/navbar/Navbar.jsx'
 import { useNavigate } from 'react-router-dom'
 import CreateClassroom from '../classroom/CreateClassroom'
+import UserIcon from "../../profileDefaults/UserIcon.jsx"
 import axios from 'axios'
 
 function Profile() {
@@ -37,6 +38,9 @@ function Profile() {
                         {/* <img src='profilePic.jpeg' alt="ProfilePic" className='rounded-full h-60 w-60' /> */}
                         {/* <img src={`http://localhost:3000/${user.photo}`} alt="ProfilePic" className='rounded-full h-60 w-60'  /> */}
                         <img src={process.env.PUBLIC_URL + user.photo} alt="ProfilePic" className='rounded-full h-60 w-60'  />
+                        {/* <div className='rounded-full h-60 w-60'>
+                            <UserIcon name={user.name ? user.name : user.username} />
+                        </div> */}
                     </a>
 
                     <div className='font-semibold text-6xl text-center'>

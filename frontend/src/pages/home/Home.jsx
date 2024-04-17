@@ -18,8 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchClasses = async () => {
-      //    console.log(user)
-
+      console.log(user)
       try {
         if (user) {
           let endpoint;
@@ -43,7 +42,7 @@ export default function Home() {
     };
 
     fetchClasses();
-  }, [user]);
+  });
 
   return (
     <div>
@@ -58,7 +57,7 @@ export default function Home() {
               teachers: classItem.teachers,
               // students: classItem.students
             }} />
-            
+
           </div>
         ))}
       </div>

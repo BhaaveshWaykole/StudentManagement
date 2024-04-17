@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
+import UserIcon from '../../profileDefaults/UserIcon.jsx';
 export default function ClassCard({ classInfo }) {
   const [teacherName, setTeacherName] = useState("");
 
@@ -22,7 +22,8 @@ export default function ClassCard({ classInfo }) {
         <h1 className='font-poppins-500 bg-red-500 text-xl'> {classInfo.className} </h1>
         <h2 className='font-poppins-200'>{teacherName}</h2>
         <div className='bg-white rounded-rnd-2p p-2 flex justify-end'>
-          <img src="" alt="ClassCardPic" className='rounded-full border border-black mt-1 h-12 w-12' />
+          {/* <img src="" alt="ClassCardPic" className='rounded-full border border-black mt-1 h-12 w-12' /> */}
+          <UserIcon name={classInfo.className} />
         </div>
         <div>
           {/* displays latest 3 assignments only  */}

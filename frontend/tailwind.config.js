@@ -32,6 +32,11 @@ module.exports = withMT({
       colors: {
         'black-bg': '#121212',
         'white-e' : "#EEEEEE",
+        'bone' : "#DFD0BB",
+        'harvest-gold' : "#E5BD77",
+        'seinna' : "#CC7952",
+        "mule" : "#943D2C",
+        "tundora" : "#474344"
       },
       maxHeight: {
         '500': '32rem',

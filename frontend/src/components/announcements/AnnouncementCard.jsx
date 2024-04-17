@@ -31,7 +31,7 @@ export default function AnnouncementCard({ announceInfo }) {
         <div className='profile flex flex-row mr-2'>
           {/* redirect to profile page */}
           <a href="">
-            <img src="profilePic.jpeg" alt="ProfilePic" className='rounded-full h-12 w-12' />
+            <img src="profilePic.jpeg" alt="ProfilePic" className='rounded-full border-black border-1 h-12 w-12' />
           </a>
         </div>
         <div>
@@ -50,6 +50,9 @@ export default function AnnouncementCard({ announceInfo }) {
         </div>
       </div>
       <div className='announceContent mt-2 h-fit text-wrap p-3'>
+        <div className='text-lg'>
+          {announceInfo.title}
+        </div>
         <p>
           {announceInfo.content}
         </p>
