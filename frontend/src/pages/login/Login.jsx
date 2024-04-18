@@ -54,7 +54,7 @@ export const Login = () => {
         </select>
         <div className="inputs">
           <div className="input">
-            <img src="email.png" alt="" />
+            <img src="" alt="" />
             <input type="email"
               placeholder="Email Id"
               ref={emailRef}

@@ -5,14 +5,13 @@ import AttendanceCard from './components/attendanceCard/AttendanceCard.jsx'
 import Login from './pages/login/Login.jsx'
 import { AuthProvider } from './context/AuthContext.js';
 import CreateClassroom from './pages/classroom/CreateClassroom.jsx';
-// import studentData from './default.js'
-// import Temp from './components/NotPresentAttendance.jsx'
 import { Routes, Route } from 'react-router-dom';
 import StudentList from './pages/studentList/StudentList.jsx';
 import Profile from './pages/profile/Profile.jsx';
 import Signup from './pages/signup/Signup.jsx';
 import MarkAttendance from './pages/markAttendance/MarkAttendance.jsx';
 import AddStuds from './pages/addStuds/AddStuds.jsx';
+
 function App() {
   return (
     <div className="App">
