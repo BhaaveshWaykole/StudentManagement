@@ -19,7 +19,7 @@ const AnnouncementCard = ({ announceInfo }) => {
             </View>
             <View style={styles.content}>
                 <View>
-                    <Text style={styles.teacherName}>{announceInfo.title}</Text>
+                    <Text style={styles.teacherName}>{announceInfo.teacher}</Text>
                     <Text style={styles.dateTime}>{date} {formattedTime}</Text>
                 </View>
                 <View style={styles.announceContent}>

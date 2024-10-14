@@ -3,24 +3,23 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation, useParams } from '@react-navigation/native';
 
 function ClassNavbar() {
-  const { classId } = "661135e85dcd40e5d00fa5ec";
-  const navigation = useNavigation();
+  // const { classId } = useParams();
+  // const navigation = useNavigation();
 
   // const navigateToAttendanceCard = () => {
   //   navigation.navigate('MarkAttendance', { classId });
   // };
-  
-  const navigateToStudentList = () => {
-    console.log("Shreya");
-    navigation.navigate('StudentList', { classId });
-  };
+
+  // const navigateToStudentList = () => {
+  //   navigation.navigate('StudentsList', { classId });
+  // };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} /*onPress={navigateToAttendanceCard}*/>
         <Text style={styles.buttonText}>Attendance</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={navigateToStudentList}>
+      <TouchableOpacity style={styles.button} /*onPress={navigateToStudentList}</View>*/>
         <Text style={styles.buttonText}>Students</Text>
       </TouchableOpacity>
     </View>

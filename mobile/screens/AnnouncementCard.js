@@ -31,7 +31,7 @@ const AnnouncementCard = ({ announceInfo }) => {
         <Image source={require('../assets/profilePic.jpeg')} style={styles.profileImage} />
       </View>
       <View style={styles.content}>
-        <Text style={styles.name}>{announceInfo.}</Text>
+        <Text style={styles.name}>{announceInfo.announcementData}</Text>
         <Text style={styles.timestamp}>{date}</Text>
         <Text style={styles.timestamp}>{formattedTime}</Text>
         <View style={styles.announceContent}>

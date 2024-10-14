@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from './Context/AuthContext.js';
 import { View, Text, TextInput, Button, ScrollView, StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -22,13 +22,13 @@ const Login = () => {
   const [selectedValue, setSelectedValue] = useState('student');
 
   const handleButtonPress = () => {
-    // Access the current selected value of the Picker using the ref
+    // Access the current selected value of the Picker using the ref 
     const selectedOption = pickerRef.current.props.selectedValue;
 
-    // Use the selected value in your function
+    // Use the selected value in your function 
     console.log('Selected value:', selectedOption);
-    // Call your function here with the selectedOption
-    // yourFunction(selectedOption);
+    // Call your function here with the selectedOption 
+    // yourFunction(selectedOption); 
   };
   const renderLabel = () => {
     if (value && isFocus) {
@@ -41,8 +41,8 @@ const Login = () => {
     return null;
   };
   const handleLogin = async () => {
-    const email = emailRef.current?.value; // Access the value directly using emailRef.current.value
-    const password = passwordRef.current?.value; // Access the value directly using passwordRef.current.value
+    const email = emailRef.current?.value; // Access the value directly using emailRef.current.value 
+    const password = passwordRef.current?.value; // Access the value directly using passwordRef.current.value 
     const userType = value;
 
     if (!email && !password) {
@@ -84,7 +84,7 @@ const Login = () => {
             style={styles.inputField}
           />
         </View>
-        
+
         <View style={styles.container}>
           {renderLabel()}
           <Dropdown
@@ -115,13 +115,13 @@ const Login = () => {
                 size={20}
               />
             )}
-            ref={userTypeRef} // Assign the userTypeRef
+            ref={userTypeRef} // Assign the userTypeRef 
           />
         </View>
       </View>
       <Text style={styles.forgotPassword}>Forgot Password?<Text style={styles.clickHere}>Click Here!</Text></Text>
       <View style={styles.submitContainer}>
-    <Button title="Login" onPress={handleLogin} />
+        <Button title="Login" onPress={handleLogin} />
       </View>
     </ScrollView>
   );

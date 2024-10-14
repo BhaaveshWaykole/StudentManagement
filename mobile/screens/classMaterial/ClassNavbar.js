@@ -1,20 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
-import { useNavigation, useParams } from '@react-navigation/native';
-
 const ClassNavbar = () => {
-    const classId = "661135e85dcd40e5d00fa5ec";
-    const navigation = useNavigation();
     const AttendanceCardNav = () => {
         // Define what happens when AttendanceCard is clicked
-        navigation.navigate('MarkAttendance', { classId });
         console.log('AttendanceCardNav')
     };
 
     const studentList = () => {
         // Define what happens when Student List is clicked
-        console.log(classId);
-        navigation.navigate('StudentList', { classId });
         console.log('studentList')
     };
     return (

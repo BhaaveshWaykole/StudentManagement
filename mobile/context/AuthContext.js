@@ -11,12 +11,10 @@ const AuthProvider = ({ children }) => {
     try {
       let userData;
       if (userType === 'student') {
-        console.log(userType);
-        userData = await axios.post('http://10.24.70.217:8000/api/students/login', { email, password, userType });
+        userData = await axios.post('http://your-api-url/api/students/login', { email, password, userType });
       } else if (userType === 'faculty') {
-        userData = await axios.post('http://10.24.70.217:8000/api/faculty/login', { email, password, userType });
+        userData = await axios.post('http://your-api-url/api/faculty/login', { email, password, userType });
       }
-      console.log("Zian");
       console.log(userData.data);
       setUser(userData.data);
     } catch (error) {

@@ -7,57 +7,77 @@ import { useAuth } from '../../context/AuthContext.js';
 
 export default function Home() {
   const navigate = useNavigate();
-
   const goToClassroom = (classId) => {
-    //console.log(classId);
-    navigate(`/classroom/${classId._id}`)
+    navigate(`/classroom/${classId}`);
   };
-
   const { user } = useAuth();
   const [classes, setClasses] = useState([]);
-
   useEffect(() => {
     const fetchClasses = async () => {
-      console.log(user)
       try {
         if (user) {
+          // console.log("HI start")
           let endpoint;
-
           if (user.userType === 'student') {
             endpoint = `/api/students/class/${user._id}`;
-          } else if (user.userType === 'faculty') {
-            endpoint = `/api/teachers/class/${user._id}`;
+            // console.log("HI student")
+          } else if (user.type === 'faculty') {
+            endpoint = `/api/faculty/class/${user._id}`;
+            // console.log("HI teacher")
           }
 
           if (endpoint) {
             const response = await axios.get(endpoint);
-            console.log(response.data)
+            console.log("HI res")
             setClasses(response.data);
           }
         }
       } catch (error) {
         console.error('Failed to fetch classes', error);
       }
-
     };
 
     fetchClasses();
-  });
+  }, [user]);
 
+  // return (
+  //   <div>
+  //     <Navbar />
+  //     <div className="flex flex-row flex-wrap">
+  //       {classes.map((classItem) => (
+  //         <div key={classItem.key} onClick={() => goToClassroom(classItem._id)}>
+  //           //
+  //           <ClassCard classInfo={{
+  //             key: classItem._id,
+  //             className: classItem.name,
+  //             teachers: classItem.teachers,
+  //             students: classItem.students,
+  //           }} />
+  //           //
+  //           <ClassCard classInfo={{
+  //             key: classItem._id,
+  //             className: classItem.name,
+  //             teachers: classItem.teachers,
+  //             students: classItem.students,
+  //           }} />
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
   return (
     <div>
       <Navbar />
       <div className="flex flex-row flex-wrap">
         {classes.map((classItem) => (
-          <div key={classItem._id} onClick={() => goToClassroom(classItem)} className="class-card">
-
+          <div key={classItem._id} onClick={() => goToClassroom(classItem._id)} className="class-card">
+            {/* <ClassCard classInfo={classItem} /> */}
             <ClassCard classInfo={{
               key: classItem._id,
               className: classItem.name,
               teachers: classItem.teachers,
-              // students: classItem.students
+              students: classItem.students,
             }} />
-
           </div>
         ))}
       </div>

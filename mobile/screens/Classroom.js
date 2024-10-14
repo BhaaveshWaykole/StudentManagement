@@ -1,98 +1,37 @@
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import ClassNavbar from './classMaterial/ClassNavbar.js';
 import AnnouncementCard from './announcementsMaterial/AnnouncementCard.js';
-import { useRef, useState, useEffect } from 'react'
-import { useNavigation} from '@react-navigation/native';
-import { useRoute } from '@react-navigation/native';
-import axios from 'axios'; // Import axios
-
+import { useRef, useState } from 'react'
 const Clasroom = () => {
-    
+    const [announcementTitle, setAnnouncementTitle] = useState('');
+    const [announcementContent, setAnnouncementContent] = useState('');
+    const announcements = [
+        {
+            key: '1',
+            teacher: 'Teacher A',
+            createdAt: '2024-04-18T08:00:00Z',
+            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        },
+        {
+            key: '2',
+            teacher: 'Teacher B',
+            createdAt: '2024-04-17T10:30:00Z',
+            content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+        },
+        {
+            key: '3',
+            teacher: 'Teacher C',
+            createdAt: '2024-04-16T15:45:00Z',
+            content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+        }
+    ];
 
-  const [classInfo, setClassInfo] = useState({});
-  const [announcements, setAnnouncements] = useState([]);
-  const [announcementTitle, setAnnouncementTitle] = useState('');
-  const [announcementContent, setAnnouncementContent] = useState('');
-
-  const [teacher, setTeacherName] = useState([]);
-  const announcementRef = useRef();
-  const announcementTitleRef = useRef();
-  const route = useRoute();
-
-  // Access the params object to get the classId
-  const { classId } = route.params;
-
-  const handlePost = async (req, res) => {
-    const content = announcementContent;
-    const title = announcementTitle;
-    
-    await axios.post("http://192.168.29.199:8000/api/announcement/regAnnouncement", {content, cId : classId, teacher : teacher._id, title})
-  }
-  
-  
-  useEffect(() => {
-    const fetchClassDetails = async () => {
-      try {
-        // console.log("HI", classId)
-        // console.log("HI", classId)
-        const response = await axios.get(`http://192.168.29.199:8000/api/classroom/${classId}`);
-        setClassInfo(response.data);
-        // console.log(response.data)
-        // console.log(response.data)
-      } catch (error) {
-        console.error('Failed to fetch class details', error);
-      }
-    };
-    fetchClassDetails();
-  }, [classId]);
-
-  useEffect(() => {
-    const fetchAnnouncements = async () => {
-      try {
-        const response = await axios.get(`http://192.168.29.199:8000/api/announcement/${classId}`);
-        console.log(response.data)
-        setAnnouncements(response.data);
-      } catch (error) {
-        console.error('Failed to fetch announcements', error);
-      }
-    };
-
-    fetchAnnouncements();
-  }, [classId,announcementTitle]);
-
-  useEffect(() => {
-    const fetchTeacher = async () => {
-      try {
-        const response = await axios.get(`http://192.168.29.199:8000/api/teachers/teacherName/${classId}`);
-        setTeacherName(response.data[0]);
-      } catch (error) {
-        console.error('Failed to fetch teacher', error);
-      }
-    };
-
-    fetchTeacher();
-  }, [classInfo.teachers]);
-
-  useEffect(() => {
-    const fetchTeacher = async () => {
-      try {
-        const response = await axios.get(`http://192.168.29.199:8000/api/teachers/teacherName/${classId}`);
-        setTeacherName(response.data[0]);
-      } catch (error) {
-        console.error('Failed to fetch teacher', error);
-      }
-    };
-
-    fetchTeacher();
-  }, [classInfo.teachers]);
-
-  const goToAnnouncement = (announcementId) => {
-    console.log(announcementId);
-    // Implement navigation or other logic as needed
-  };
-
-
-
+    const handlePost = () => {
+        console.log(announcementContent)
+        // const content = announcementRef.current.value
+        // const title = announcementTitleRef.current.value
+        // await axios.post("/api/announcement/regAnnouncement", { content, cId: classId, teacher: teacher._id, title })
+    }
     return (
         <View style={styles.container}>
             <View style={styles.navbar}>
@@ -108,14 +47,12 @@ const Clasroom = () => {
             <View style={styles.announcements}>
                 <Text style={styles.announcementsHeader}>Announcements</Text>
                 <TextInput
-                    ref={announcementTitleRef}
                     style={styles.input}
                     placeholder='Title'
                     value={announcementTitle}
                     onChangeText={setAnnouncementTitle}
                 />
-                <TextInput 
-                    ref={announcementRef}
+                <TextInput
                     style={styles.input}
                     placeholder='Post Announcement here'
                     value={announcementContent}
@@ -125,17 +62,15 @@ const Clasroom = () => {
                     <Text style={styles.buttonText}>Post</Text>
                 </TouchableOpacity>
                 <ScrollView>
-                <ScrollView>
                     {announcements.map((announcementItem) => (
                         <TouchableOpacity
                             style={styles.announcementCard}
-                            key={announcementItem._id} // Assuming _id is the unique identifier of each announcement
+                            key={announcementItem.key}
+                        // onPress={() => goToAnnouncement(announcementItem.key)}
                         >
                             <AnnouncementCard announceInfo={announcementItem} />
                         </TouchableOpacity>
                     ))}
-                </ScrollView>
-
                 </ScrollView>
             </View>
         </View>
