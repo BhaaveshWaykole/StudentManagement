@@ -134,6 +134,7 @@ export const loginStudent = async (req, res) => {
     const { email, password, userType} = req.body;
     try {
         const student = await Student.findOne({ email });
+        // check if password and username correct or not
         if (!student || !bcrypt.compareSync(password, student.password)) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
