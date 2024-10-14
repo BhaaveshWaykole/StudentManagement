@@ -45,7 +45,8 @@ export const postStudent = async (req, res) => {
             prn: req.body.prn,
             username: req.body.username,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            userType : req.body.userType
         });
         // console.log("after")
         // Save User
@@ -133,6 +134,10 @@ export const loginStudent = async (req, res) => {
     const { email, password, userType} = req.body;
     try {
         const student = await Student.findOne({ email });
+        // console.log(!student);
+        console.log(password);
+        console.log(student.password);
+        // console.log(!bcrypt.compareSync(password, student.password))
         if (!student || !bcrypt.compareSync(password, student.password)) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
