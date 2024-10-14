@@ -17,8 +17,7 @@ export default function Clasroom() {
     const title = announcementTitleRef.current.value
     await axios.post("/api/announcement/regAnnouncement", {content, cId : classId, teacher : teacher._id, title})
   }
-  
-  
+
   useEffect(() => {
     const fetchClassDetails = async () => {
       try {
@@ -89,22 +88,25 @@ export default function Clasroom() {
       <div className="Main-Name bg-amber-600 h-60 p-3 rounded-rnd-6p">
         <h1 className="text-center font-poppins-500 text-3xl">
           {classInfo.name}
-          {classInfo.name}
         </h1>
         <h3 className="p-3 rounded-rnd-6p h-4/5 bg-green-500 flex flex-col flex-col-reverse font-poppins-200">
           <p>{classInfo.yearBatch}</p>
-          -{teacher.name}
           -{teacher.name}
         </h3>
       </div>
       <div className="h-fit font-poppins-500 bg-yellow-500 my-3 mx-5 p-3 rounded-rnd-6p">
         <h4>Announcements</h4>
         <input type="text" placeholder='Title' className="font-poppins-200 rounded-rnd-6 bg-transparent border-b border-black w-full mt-12 focus:outline-none" ref={announcementTitleRef} />
+
         <input type="text" placeholder='Post Announcement here' className="font-poppins-200 rounded-rnd-6 bg-transparent border-b border-black w-full mt-12 focus:outline-none" ref={announcementRef} />
+
         <button className='bg-green-500 rounded-md mt-1 p-1' onClick={handlePost}>Post</button>
-        <input type="text" placeholder='Title' className="font-poppins-200 rounded-rnd-6 bg-transparent border-b border-black w-full mt-12 focus:outline-none" ref={announcementTitleRef} />
+
+        {/* <input type="text" placeholder='Title' className="font-poppins-200 rounded-rnd-6 bg-transparent border-b border-black w-full mt-12 focus:outline-none" ref={announcementTitleRef} />
+
         <input type="text" placeholder='Post Announcement here' className="font-poppins-200 rounded-rnd-6 bg-transparent border-b border-black w-full mt-12 focus:outline-none" ref={announcementRef} />
-        <button className='bg-green-500 rounded-md mt-1 p-1' onClick={handlePost}>Post</button>
+        
+        <button className='bg-green-500 rounded-md mt-1 p-1' onClick={handlePost}>Post</button> */}
       </div>
 
       <div className="font-poppins-500">

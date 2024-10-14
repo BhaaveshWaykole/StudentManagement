@@ -17,7 +17,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className='bg-gray-400 h-16 flex flex-row align-center justify-between'>
+    <div className='bg-gray-400 flex flex-row align-center justify-between items-center'>
       <div className="name font-poppins-800 w-fit h-full p-5 text-2xl">
         <a href="/">
           <h1 className="text-bold">LMS</h1>
@@ -29,9 +29,9 @@ export default function Navbar() {
             <button className='p-1 rounded-md bg-yellow-500' onClick={createClassHandle}>Create Class</button>
           </div>
         )}
-        <div className='profile flex flex-row mr-2 pt-2'>
+        <div className='profile items-center'>
           <a href="/profile"> {/* Redirect to profile page */}
-            <img src="profilePic.jpeg" alt="ProfilePic" className='rounded-full h-12 w-12' />
+            <img src="profilePic.jpeg" alt="ProfilePic" className='rounded-full h-12 w-12 border-4 border-solid'/>
           </a>
         </div>
         <div className="items-center flex mx-5">
