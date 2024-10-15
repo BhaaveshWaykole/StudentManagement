@@ -45,14 +45,14 @@ export const Login = () => {
       </select>
       <div className="inputs">
         <div className="input">
-          <img src="email.png" alt="" />
+          <img src="email.png" alt="" style={{ width: '30px', height: '30px' }} />
           <input type="email"
             placeholder="Email Id"
             ref={emailRef}
           />
         </div>
         <div className="input">
-          <img src="password.png" alt="" />
+          <img src="password.png" alt="" style={{ width: '30px', height: '25px' }} />
           <input type="password" placeholder="Password" ref={passwordRef} />
         </div>
       </div>
