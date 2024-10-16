@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
     try {
       let userData;
       if (userType === 'student') {
+        // userData = await axios.post('/api/students/login', { email, password, userType });
         userData = await axios.post('/api/students/login', { email, password, userType });
       } else if (userType === 'faculty') {
         userData = await axios.post('/api/faculty/login', { email, password, userType });
