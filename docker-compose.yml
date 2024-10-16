@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./api  # Path to your backend Dockerfile
+    container_name: backend
+    ports:
+      - "8000:8000"  # Map local port 8000 to container port 8000
+    environment:
+      MONGO_URL: mongodb+srv://bhaaveshw:studentsZIA@student-management.ednrotq.mongodb.net/?retryWrites=true&w=majority&appName=Student-Management  # Use service name 'mongo' for MongoDB
+    depends_on:
+      - mongo
+    networks:
+      - student_network
+    dns:
+    - 8.8.8.8
+
+  frontend:
+    build:
+      context: ./frontend  # Path to your frontend Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"  # Map local port 3000 to container port 3000
+    depends_on:
+      - backend
+    networks:
+      - student_network
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - student_network
+
+volumes:
+  mongo-data:
+
+networks:
+  student_network:
+    driver: bridge
