@@ -26,7 +26,7 @@ export default function AnnouncementCard({ announceInfo }) {
 
 
   return (
-    <div>
+    <div style={{backgroundColor: '#DAD7D5'}}>
       <div className="flex flex-row">
         <div className='profile flex flex-row mr-2'>
           {/* redirect to profile page */}

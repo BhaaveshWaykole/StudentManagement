@@ -17,11 +17,11 @@ export default function ClassCard({ classInfo }) {
     fetchTeacher();
   }, [classInfo.teachers]);
   return (
-    <div className='h-54 w-64 bg-orange-400 p-3 m-5 rounded-rnd-6p'>
+    <div className='h-54 w-64 bg-gray-400 p-3 m-3 rounded-rnd-6p'>
       <div className="text-left">
-        <h1 className='font-poppins-500 bg-red-500 text-xl'> {classInfo.className} </h1>
-        <h2 className='font-poppins-200'>{teacherName}</h2>
-        <div className='bg-white rounded-rnd-2p p-2 flex justify-end'>
+        <h1 className='font-poppins-500 bg-red-500 p-0.5 text-xl rounded-rnd-2p' style={{backgroundColor:'#DAD7D5'}}> {classInfo.className} </h1>
+        <h2 className='font-poppins-200 p-1'>{teacherName}</h2>
+        <div className='rounded-rnd-2p p-2 flex justify-end' style={{backgroundColor:'#DAD7D5'}}>
           <img src="" alt="ClassCardPic" className='rounded-full border border-black mt-1 h-12 w-12' />
         </div>
         <div>

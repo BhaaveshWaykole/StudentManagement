@@ -66,7 +66,7 @@ export default function Home() {
   //   </div>
   // );
   return (
-    <div>
+    <div style={{backgroundColor:'#DAD7D5'}}>
       <Navbar />
       <div className="flex flex-row flex-wrap">
         {classes.map((classItem) => (

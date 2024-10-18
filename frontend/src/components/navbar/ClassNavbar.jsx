@@ -18,15 +18,15 @@ function ClassNavbar() {
   return (
     <div className="ml-5 flex flex-row gap-7 p-5">
       {user && user.userType === 'faculty' && (
-        <h2 className="bg-gray-500 p-2 rounded-lg text-white" onClick={AttendanceCardNav}>
+        <h2 className="bg-blue-500 p-2 rounded-lg text-white" style={{backgroundColor:'#4B0082'}} onClick={AttendanceCardNav}>
           Attendance
         </h2>
       )}
-      <h2 className="bg-gray-500 p-2 rounded-lg text-white" onClick={studentList}>
+      <h2 className="bg-blue-500 p-2 rounded-lg text-white" style={{backgroundColor:'#4B0082'}} onClick={studentList}>
         Students
       </h2>
       {user && user.userType === 'faculty' && (
-        <h2 className="bg-gray-500 p-2 rounded-lg text-white" onClick={addStudents}>
+        <h2 className="bg-blue-500 p-2 rounded-lg text-white" style={{backgroundColor:'#4B0082'}} onClick={addStudents}>
           Add Students
         </h2>
       )}
