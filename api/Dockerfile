@@ -1,19 +1,13 @@
 #node image to use : 
 FROM node:22
 
-# WORKDIR /Users/bhaaveshwaykole/Desktop/SMS copy/api
 WORKDIR /usr/src/app
 
 #Copy json instances 
 COPY package*.json ./
 
-RUN rm -rf node_modules
 RUN npm install
 RUN npm rebuild bcrypt --update-binary
-
-
-# Install application dependencies
-RUN npm install
 
 # Copy files 
 COPY . . 
