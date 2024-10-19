@@ -21,7 +21,7 @@ export const Login = () => {
       return;
     }
     try {
-      // Call the login method with email, password, and user type
+      // Call the login method with email, password, and user type!
       await login(email, password, userType);
       navigate('/home')
       // Redirect or perform other actions after successful login
@@ -29,7 +29,7 @@ export const Login = () => {
       console.error('Login failed:', error);
     }
   };
-
+  
   return (
     <div className="container">
       <div className="header">
