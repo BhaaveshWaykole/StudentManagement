@@ -17,7 +17,7 @@ export const Login = () => {
 
     // Assuming you have a method to validate user input before sending the request
     if (!email || !password) {
-      console.error('Please enter email and password');
+      console.error('Please enter email and password!');
       return;
     }
     try {
